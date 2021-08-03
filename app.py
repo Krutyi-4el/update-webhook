@@ -10,14 +10,14 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def test():
-    print(request.form, request.args)
+    print(request.data, request.args)
     if request.args.get('token', None) != getenv("AUTHORIZATION_CODE"):
         return "authorization required", 401
     w = Webhook.from_url(
         getenv("WEBHOOK_URL"),
         adapter=RequestsWebhookAdapter()
     )
-    w.send(loads(request.form['data'])['version'])
+    w.send(loads(request.data)["data"]["version"])
     return "ok"
 
 
