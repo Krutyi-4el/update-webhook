@@ -33,12 +33,12 @@ def test():
             data["published_at"].replace("Z", "+00:00")
         )
     )
-    .add_field(
+    embed.add_field(
         name="Версия",
         value=data["data"]["version"],
         inline=False
     )
-    .add_field(
+    embed.add_field(
         name="Описание",
         value=data["data"]["description"],
         inline=False
