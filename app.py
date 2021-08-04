@@ -46,8 +46,7 @@ def test():
     Webhook.from_url(
         getenv("WEBHOOK_URL"),
         adapter=RequestsWebhookAdapter()
-    )
-    .send(embed=embed)
+    ).send(embed=embed)
     return "ok"
 
 
