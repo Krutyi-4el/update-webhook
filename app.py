@@ -12,18 +12,18 @@ from datetime import datetime
 
 
 app = Flask(__name__)
-processed = []
+processed = set()
 
 
 @app.route('/webhook', methods=['POST'])
 def test():
     print(request.data, request.args)
-    if request.args.get('token', None) != getenv("AUTHORIZATION_CODE"):
+    if request.args.get('token') != getenv("AUTHORIZATION_CODE"):
         return "authorization required", 401
     data = loads(request.data)
     if data["data"]["id"] in processed:
         return "ok, already done"
-    processed.append(data["data"]["id"])
+    processed.add(data["data"]["id"])
     success = data["data"]["status"] == "succeeded"
     embed = Embed(
         title="Обновление",
